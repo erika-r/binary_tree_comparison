@@ -19,8 +19,8 @@ insert(X,bst(Root,Left,Right),NewTree):-
 preorder(bst([],[],[]), []).
 preorder(bst(X,[],[]), [X]). 
 preorder(bst(Root,Left,Right), Pretraverse):-
-    preorder(Left,LeftNodes), preorder(Right, RightNode),
-    append([Root|LeftNodes], RightNode, Pretraverse).
+    preorder(Left,LeftNodes), preorder(Right, RightNodes),
+    append([Root|LeftNodes], RightNodes, Pretraverse).
 
 %test case
 %preorder(bst(3,bst(2,bst(1,[],[]),bst([],[],[])),bst(4,[],[])),Y).
@@ -47,3 +47,27 @@ search(bst(Root,Left,Right),X):-
     search(Left, X),!;
     X > Root,
     search(Right,X).
+
+%----------------------------------------------------------------------------
+/* test are made to make testing easier and clearer.
+    enter a list of numbers to create a tree*/
+
+test_insert(List,Number,Result):-
+    makeTree(List,bst([],[],[]),Tree),
+    insert(Number,Tree,Result).
+
+test_preorder(List,Result):- 
+    makeTree(List,bst([],[],[]),Tree),
+    preorder(Tree,Result).
+
+test_inorder(List,Result):- 
+    makeTree(List,bst([],[],[]),Tree),
+    inorder(Tree,Result).
+
+test_postorder(List,Result):- 
+    makeTree(List,bst([],[],[]),Tree),
+    postorder(Tree,Result).
+
+test_search(List,Number):- 
+    makeTree(List,bst([],[],[]),Tree),
+    search(Tree,Number).
