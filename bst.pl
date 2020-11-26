@@ -16,24 +16,31 @@ insert(X,bst(Root,Left,Right),NewTree):-
    NewTree=bst(Root,Left,NewRight).
 
 %----------------------------------------------------------------------------
-preorder(bst([],[],[]), []). 
+preorder(bst([],[],[]), []).
+preorder(bst(X,[],[]), [X]). 
 preorder(bst(Root,Left,Right), Pretraverse):-
     preorder(Left,LeftNodes), preorder(Right, RightNode),
     append([Root|LeftNodes], RightNode, Pretraverse).
 
+%test case
+%preorder(bst(3,bst(2,bst(1,[],[]),bst([],[],[])),bst(4,[],[])),Y).
 
 %------------------------------------------------------------------------------
 inorder(bst([],[],[]), []).
+inorder(bst(X,[],[]), [X]).
 inorder(bst(Root,Left,Right), Intraverse):-
-    inorder(Left,LeftNodes),inorder(Right,RightNodes),
+    inorder(Left,LeftNodes), inorder(Right, RightNodes),
     append(LeftNodes,[Root|RightNodes],Intraverse).
 %------------------------------------------------------------------------------
-postorder(bst([],[],[]), []). 
-postorder(bst(Root,Left,Right), Postraverse):-
+postorder(bst([],[],[]), []).
+postorder(bst(X,[],[]), [X]). 
+postorder(bst(Root,Left,Right), Posttraverse):-
     postorder(Left,LeftNodes), postorder(Right, RightNodes),
-    append(LeftNodes, RightNodes,NoRoot), append(NoRoot, [Root], Postraverse).
+    append(LeftNodes, RightNodes,NoRoot), append(NoRoot, [Root], Posttraverse).
 
 %----------------------------------------------------------------------------
+search(bst([],[],[]), []).
+search(bst(X,[],[]), X).
 search(bst(Root,Left,Right),X):-
     X = Root,!;
     X =< Root,
